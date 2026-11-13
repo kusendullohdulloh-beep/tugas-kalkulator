@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan DOM Pada Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 text-gray-800">
+
+  <div class="w-full max-w-4xl bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h1 class="text-lg font-semibold">Form Input & Hasil</h1>
+      <p class="text-sm text-gray-500">Isi data di sebelah kiri, hasilnya tampil langsung di sebelah kanan. Secara realtime</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-gray-200">
+
+      <div class="p-6 space-y-4">
+        <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Input</h2>
+
+        <div>
+          <label for="nama_depan" class="block text-sm font-medium mb-1">Nama Depan</label>
+          <input type="text" id="nama_depan" placeholder="Masukkan nama depan"
+                 class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400">
+        </div>
+
+        <div>
+          <label for="nama_belakang" class="block text-sm font-medium mb-1">Nama Belakang</label>
+          <input type="text" id="nama_belakang" placeholder="Masukkan nama belakang"
+                 class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400">
+        </div>
+
+        <div>
+          <span class="block text-sm font-medium mb-1">Jenis Kelamin</span>
+          <div class="flex items-center gap-6 text-sm">
+            <label class="inline-flex items-center gap-2 cursor-pointer">
+              <input type="radio" id="jk_laki" name="jenis_kelamin" value="Laki-laki" class="text-gray-700 focus:ring-gray-400">
+              Laki-laki
+            </label>
+            <label class="inline-flex items-center gap-2 cursor-pointer">
+              <input type="radio" id="jk_perempuan" name="jenis_kelamin" value="Perempuan" class="text-gray-700 focus:ring-gray-400">
+              Perempuan
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label for="alamat" class="block text-sm font-medium mb-1">Alamat</label>
+          <textarea id="alamat" rows="3" placeholder="Masukkan alamat"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400"></textarea>
+        </div>
+
+        <div>
+          <label for="jurusan" class="block text-sm font-medium mb-1">Jurusan</label>
+          <select id="jurusan"
+                  class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400">
+            <option value="">-- Pilih jurusan --</option>
+            <option value="Teknik Informatika">Teknik Informatika</option>
+            <option value="Sistem Informasi">Sistem Informasi</option>
+            <option value="Teknik Elektro">Teknik Elektro</option>
+            <option value="Manajemen">Manajemen</option>
+            <option value="Akuntansi">Akuntansi</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button type="button" id="btn-submit"
+                  class="bg-gray-800 hover:bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-md">
+            Submit
+          </button>
+          <button type="button" id="btn-reset"
+                  class="border border-gray-300 hover:bg-gray-100 text-sm font-medium px-4 py-2 rounded-md">
+            Reset
+          </button>
+        </div>
+        <p id="pesan" class="text-sm text-red-500"></p>
+      </div>
+
+      <div class="p-6 bg-gray-50 md:rounded-br-lg">
+        <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 mb-4">Output</h2>
+
+        <dl class="space-y-4 text-sm">
+          <div>
+            <dt class="text-gray-500">Nama Depan</dt>
+            <dd id="out-depan" class="font-medium break-words">-</dd>
+          </div>
+          <div>
+            <dt class="text-gray-500">Nama Belakang</dt>
+            <dd id="out-belakang" class="font-medium break-words">-</dd>
+          </div>
+          <div>
+            <dt class="text-gray-500">Nama Lengkap</dt>
+            <dd id="out-lengkap" class="font-medium break-words">-</dd>
+          </div>
+          <div>
+            <dt class="text-gray-500">Jenis Kelamin</dt>
+            <dd id="out-jk" class="font-medium">-</dd>
+          </div>
+          <div>
+            <dt class="text-gray-500">Jurusan</dt>
+            <dd id="out-jurusan" class="font-medium">-</dd>
+          </div>
+          <div>
+            <dt class="text-gray-500">Alamat</dt>
+            <dd id="out-alamat" class="font-medium whitespace-pre-line break-words">-</dd>
+          </div>
+        </dl>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  const namaDepan = document.getElementById('nama_depan');
+  const namaBelakang = document.getElementById('nama_belakang');
+  const alamat = document.getElementById('alamat');
+  const jurusan = document.getElementById('jurusan');
+  const btnSubmit = document.getElementById('btn-submit');
+  const btnReset = document.getElementById('btn-reset');
+  const pesan = document.getElementById('pesan');
+
+  const outDepan = document.getElementById('out-depan');
+  const outBelakang = document.getElementById('out-belakang');
+  const outLengkap = document.getElementById('out-lengkap');
+  const outJk = document.getElementById('out-jk');
+  const outJurusan = document.getElementById('out-jurusan');
+  const outAlamat = document.getElementById('out-alamat');
+
+  function updateOutput() {
+    const depan = namaDepan.value;
+    const belakang = namaBelakang.value;
+    const jkTerpilih = document.querySelector('input[name="jenis_kelamin"]:checked');
+
+    outDepan.textContent = depan ? depan : '-';
+    outBelakang.textContent = belakang ? belakang : '-';
+
+    const lengkap = (depan + ' ' + belakang).trim();
+    outLengkap.textContent = lengkap ? lengkap : '-';
+
+    outJk.textContent = jkTerpilih ? jkTerpilih.value : '-';
+    outJurusan.textContent = jurusan.value ? jurusan.value : '-';
+    outAlamat.textContent = alamat.value ? alamat.value : '-';
+  }
+
+  namaDepan.addEventListener('input', updateOutput);
+  namaBelakang.addEventListener('input', updateOutput);
+  alamat.addEventListener('input', updateOutput);
+  jurusan.addEventListener('change', updateOutput);
+  document.querySelectorAll('input[name="jenis_kelamin"]').forEach(function(radio){
+    radio.addEventListener('change', updateOutput);
+  });
+
+  btnSubmit.addEventListener('click', function(){
+    const depan = namaDepan.value.trim();
+    const belakang = namaBelakang.value.trim();
+
+    if(depan === '' || belakang === ''){
+      pesan.textContent = 'Nama depan dan nama belakang wajib diisi!';
+      return;
+    }
+
+    pesan.textContent = '';
+    updateOutput();
+  });
+
+  btnReset.addEventListener('click', function(){
+    namaDepan.value = '';
+    namaBelakang.value = '';
+    alamat.value = '';
+    jurusan.value = '';
+    pesan.textContent = '';
+    document.querySelectorAll('input[name="jenis_kelamin"]').forEach(function(radio){
+      radio.checked = false;
+    });
+    updateOutput();
+  });
+</script>
+</body>
+</html>
